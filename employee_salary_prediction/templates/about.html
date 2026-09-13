@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block title %}About — SalarySense{% endblock %}
+{% block content %}
+
+<section class="about-hero">
+  <div class="container">
+    <h1>About SalarySense</h1>
+    <p style="max-width:70ch;">SalarySense estimates salaries using a traditional machine learning regression model trained on a structured employee salary dataset. There is no external AI or language model involved in the prediction — every number you see comes from scikit-learn.</p>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-heading">
+      <h2>Model comparison</h2>
+      <p>Four regression models were trained on the same preprocessed dataset and evaluated on an identical 80/20 held-out test split. Figures below are from the most recent training run.</p>
+    </div>
+    <table class="data-table">
+      <thead>
+        <tr><th>Model</th><th>MAE</th><th>RMSE</th><th>R²</th></tr>
+      </thead>
+      <tbody>
+        {% for name, values in metrics.get("models", {}).items() %}
+        <tr {% if name == metrics.get("best_model") %}style="font-weight:600;"{% endif %}>
+          <td>{{ name }}{% if name == metrics.get("best_model") %} — selected{% endif %}</td>
+          <td>₹{{ "{:,.0f}".format(values["mae"]) }}</td>
+          <td>₹{{ "{:,.0f}".format(values["rmse"]) }}</td>
+          <td>{{ values["r2"] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <p class="form-hint" style="margin-top:14px;">Trained on {{ metrics.get("training_records") }} records, tested on {{ metrics.get("testing_records") }} held-out records. The model with the highest R² on the test split is used for live predictions.</p>
+  </div>
+</section>
+
+<section style="background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+  <div class="container">
+    <div class="section-heading">
+      <h2>How the prediction is built</h2>
+    </div>
+    <div class="model-panel">
+      <div>
+        <h3>Data pipeline</h3>
+        <p>Raw records are cleaned to remove duplicates, invalid ages, negative experience or salary values, and statistical outliers. Numeric fields such as age and experience are standardized, categorical fields such as job title and location are one-hot encoded, and skills are converted into individual indicator columns.</p>
+      </div>
+      <div>
+        <h3>Salary range methodology</h3>
+        <p>The displayed minimum and maximum are the prediction plus or minus the selected model's RMSE on the held-out test set. It is a transparent statistical margin based on historical model error, not a promise about any specific job offer.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-heading">
+      <h2>Dataset</h2>
+      <p>The current dataset used for training is a synthetically generated employee salary dataset built for this project, modeled on realistic relationships between experience, education, role, location, industry, and pay. It is not scraped or sourced from a live external survey, and results should be read as illustrative rather than a market benchmark.</p>
+    </div>
+    <div class="chart-grid">
+      <img src="{{ url_for('static', filename='images/charts/salary_distribution.png') }}" alt="Salary distribution chart">
+      <img src="{{ url_for('static', filename='images/charts/salary_vs_experience.png') }}" alt="Salary versus experience chart">
+      <img src="{{ url_for('static', filename='images/charts/salary_by_education.png') }}" alt="Salary by education level chart">
+      <img src="{{ url_for('static', filename='images/charts/top_job_titles.png') }}" alt="Top job titles by average salary chart">
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--surface);border-top:1px solid var(--line);">
+  <div class="container">
+    <div class="disclaimer-box">
+      SalarySense provides statistical estimates for informational purposes only. It does not guarantee salary outcomes and should not be treated as financial, legal, or career advice. Always cross-check estimates with current market research before making decisions.
+    </div>
+  </div>
+</section>
+
+{% endblock %}

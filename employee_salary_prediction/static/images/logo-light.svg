@@ -1,0 +1,10 @@
+<svg width="220" height="52" viewBox="0 0 220 52" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="SalarySense logo">
+  <g>
+    <rect x="2" y="26" width="9" height="20" rx="1.5" fill="#8FA3B8"/>
+    <rect x="15" y="16" width="9" height="30" rx="1.5" fill="#F7F7F4"/>
+    <rect x="28" y="6" width="9" height="40" rx="1.5" fill="#F7F7F4"/>
+    <path d="M39 12 L50 3 L50 8.6 L44.2 13.4 Z" fill="#D9A93E"/>
+    <path d="M39 12 L44.6 6.8 L50 3" stroke="#D9A93E" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+  </g>
+  <text x="62" y="34" font-family="'IBM Plex Sans', 'Segoe UI', Arial, sans-serif" font-size="23" font-weight="600" fill="#F7F7F4">Salary<tspan fill="#D9A93E">Sense</tspan></text>
+</svg>

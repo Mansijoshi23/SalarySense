@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Create Account — SalarySense{% endblock %}
+{% block content %}
+<div class="auth-shell">
+  <div class="auth-card">
+    <a class="navbar-logo" href="{{ url_for('index') }}">
+      <img src="{{ url_for('static', filename='images/logo.svg') }}" alt="SalarySense">
+    </a>
+    <h1>Create your account</h1>
+    <p style="color:var(--text-muted);margin-bottom:22px;">Save your predictions and track them over time.</p>
+
+    <form method="POST" id="registration-form" novalidate>
+      <div class="form-group">
+        <label for="name">Full name</label>
+        <input type="text" id="name" name="name" value="{{ name }}" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" value="{{ email }}" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+        <div class="form-hint">At least 8 characters, including letters and numbers.</div>
+      </div>
+      <div class="form-group">
+        <label for="confirm_password">Confirm password</label>
+        <input type="password" id="confirm_password" name="confirm_password" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Create account</button>
+    </form>
+
+    <p class="auth-footer-note">Already have an account? <a href="{{ url_for('login') }}">Log in</a></p>
+  </div>
+</div>
+{% endblock %}

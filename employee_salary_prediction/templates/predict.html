@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% block title %}Predict Salary — SalarySense{% endblock %}
+{% block content %}
+<div class="container" style="max-width:840px;">
+  <div class="page-header">
+    <h1>Salary prediction</h1>
+    <p>Fill in your professional profile below. The more accurate your inputs, the more useful the estimate.</p>
+  </div>
+
+  <form method="POST" id="prediction-form" novalidate style="margin-top:24px;">
+    <div class="form-section-card">
+      <h3>Personal information</h3>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="age">Age</label>
+          <input type="number" id="age" name="age" min="18" max="75" value="{{ form_data.get('age', '') }}" required>
+        </div>
+        <div class="form-group">
+          <label for="gender">Gender</label>
+          <select id="gender" name="gender" required>
+            <option value="">Select gender</option>
+            {% for option in genders %}
+              <option value="{{ option }}" {% if form_data.get('gender') == option %}selected{% endif %}>{{ option }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group" style="grid-column:1 / -1;">
+          <label for="location">Location</label>
+          <select id="location" name="location" required>
+            <option value="">Select location</option>
+            {% for option in locations %}
+              <option value="{{ option }}" {% if form_data.get('location') == option %}selected{% endif %}>{{ option }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section-card">
+      <h3>Education</h3>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="education_level">Education level</label>
+          <select id="education_level" name="education_level" required>
+            <option value="">Select education level</option>
+            {% for option in education_levels %}
+              <option value="{{ option }}" {% if form_data.get('education_level') == option %}selected{% endif %}>{{ option }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="certifications">Number of certifications</label>
+          <input type="number" id="certifications" name="certifications" min="0" max="15" value="{{ form_data.get('certifications', 0) }}">
+        </div>
+      </div>
+    </div>
+
+    <div class="form-section-card">
+      <h3>Professional information</h3>
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="job_title">Job title</label>
+          <select id="job_title" name="job_title" required>
+            <option value="">Select job title</option>
+            {% for option in job_titles %}
+              <option value="{{ option }}" {% if form_data.get('job_title') == option %}selected{% endif %}>{{ option }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="industry">Industry</label>
+          <select id="industry" name="industry" required>
+            <option value="">Select industry</option>
+            {% for option in industries %}
+              <option value="{{ option }}" {% if form_data.get('industry') == option %}selected{% endif %}>{{ option }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="years_experience">Years of experience</label>
+          <input type="number" id="years_experience" name="years_experience" min="0" max="50" step="0.5" value="{{ form_data.get('years_experience', '') }}" required>
+        </div>
+        <div class="form-group">
+          <label for="employment_type">Employment type</label>
+          <select id="employment_type" name="employment_type" required>
+            <option value="">Select employment type</option>
+            {% for option in employment_types %}
+              <option value="{{ option }}" {% if form_data.get('employment_type') == option %}selected{% endif %}>{{ option }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="company_size">Company size</label>
+          <select id="company_size" name="company_size" required>
+            <option value="">Select company size</option>
+            {% for option in company_sizes %}
+              <option value="{{ option }}" {% if form_data.get('company_size') == option %}selected{% endif %}>{{ option }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="work_mode">Work mode</label>
+          <select id="work_mode" name="work_mode" required>
+            <option value="">Select work mode</option>
+            {% for option in work_modes %}
+              <option value="{{ option }}" {% if form_data.get('work_mode') == option %}selected{% endif %}>{{ option }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+      <div class="form-group" style="margin-top:6px;">
+        <label class="checkbox-row">
+          <input type="checkbox" name="is_managerial" {% if form_data.get('is_managerial') == 'on' %}checked{% endif %}>
+          This role has managerial or people-leadership responsibility
+        </label>
+      </div>
+    </div>
+
+    <div class="form-section-card">
+      <h3>Compensation information</h3>
+      <div class="form-group">
+        <label for="previous_salary">Previous / current annual salary (₹)</label>
+        <input type="number" id="previous_salary" name="previous_salary" min="0" step="1000" value="{{ form_data.get('previous_salary', '') }}" required>
+      </div>
+    </div>
+
+    <div class="form-section-card">
+      <h3>Skills</h3>
+      <p style="color:var(--text-muted);font-size:0.9rem;">Select up to 8 skills relevant to your role.</p>
+      <div class="skills-grid">
+        {% for skill in all_skills %}
+        <label class="skill-chip">
+          <input type="checkbox" name="skills" value="{{ skill }}" {% if skill in selected_skills %}checked{% endif %}>
+          {{ skill }}
+        </label>
+        {% endfor %}
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-block">Generate prediction</button>
+  </form>
+</div>
+{% endblock %}

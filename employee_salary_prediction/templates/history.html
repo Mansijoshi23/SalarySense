@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Prediction History — SalarySense{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="page-header">
+    <h1>Prediction history</h1>
+    <p>Every salary prediction you've generated, kept private to your account.</p>
+  </div>
+
+  <div style="margin:20px 0 30px;">
+    <a class="btn btn-primary" href="{{ url_for('predict') }}">New prediction</a>
+  </div>
+
+  {% if predictions %}
+  <table class="history-table">
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Job title</th>
+        <th>Experience</th>
+        <th>Predicted salary</th>
+        <th>Salary range</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in predictions %}
+      <tr>
+        <td>{{ item["created_at"][:10] }}</td>
+        <td>{{ item["job_title"] }}</td>
+        <td>{{ item["years_experience"] }} yrs</td>
+        <td>₹{{ "{:,.0f}".format(item["predicted_salary"]) }}</td>
+        <td>₹{{ "{:,.0f}".format(item["salary_min"]) }} – ₹{{ "{:,.0f}".format(item["salary_max"]) }}</td>
+        <td style="display:flex;gap:10px;">
+          <a href="{{ url_for('view_result', prediction_id=item['id']) }}">View</a>
+          <form method="POST" action="{{ url_for('delete_history_item', prediction_id=item['id']) }}" data-confirm-delete>
+            <button type="submit" class="btn-text" style="color:var(--danger);">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="empty-state">
+    <h3>No predictions yet</h3>
+    <p style="color:var(--text-muted);">Run your first salary prediction to see it appear here.</p>
+    <a class="btn btn-primary" href="{{ url_for('predict') }}">Predict Salary</a>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

@@ -1,0 +1,139 @@
+{% extends "base.html" %}
+{% block title %}SalarySense — Smart Salary Prediction{% endblock %}
+{% block content %}
+
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="hero-eyebrow">Machine learning salary estimator</div>
+      <h1>Know Your Worth.<br>Predict Your Future.</h1>
+      <p>Estimate your expected salary using machine learning based on your experience, education, role, skills, and professional background.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="{{ url_for('register') if not current_user else url_for('predict') }}">Predict Salary</a>
+        <a class="btn btn-secondary" href="{{ url_for('about') }}">Learn More</a>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="hero-visual-label">Sample estimate — Senior Software Engineer, 6 yrs experience</div>
+      <div class="hero-visual-figure">₹18,40,000 / yr</div>
+      <div class="range-bar">
+        <div class="range-bar-fill"></div>
+        <div class="range-bar-marker"></div>
+      </div>
+      <div class="range-bar-labels">
+        <span>₹15,60,000</span>
+        <span>₹21,20,000</span>
+      </div>
+      <p class="hero-visual-footnote">Range reflects the trained model's typical prediction error, not a guaranteed offer.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-heading">
+      <h2>What SalarySense does</h2>
+      <p>A focused tool for one job: turning your professional profile into a data-backed salary estimate you can use in negotiations, career planning, or job comparisons.</p>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h3>Model-driven estimate</h3>
+        <p>Your inputs are passed through a trained regression model, the same one evaluated in our model comparison, not a lookup table or guess.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Context, not just a number</h3>
+        <p>Every result includes a salary range, a comparison to similar profiles, and the factors that mattered most to the prediction.</p>
+      </div>
+      <div class="feature-card">
+        <h3>Private prediction history</h3>
+        <p>Create an account to save every estimate you generate and track how your predicted salary shifts as your profile changes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--surface);border-top:1px solid var(--line);border-bottom:1px solid var(--line);">
+  <div class="container">
+    <div class="section-heading">
+      <h2>How it works</h2>
+      <p>From profile to prediction in three steps.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">1</div>
+        <div>
+          <h3>Enter your profile</h3>
+          <p>Age, education, role, industry, location, experience, skills and more.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-number">2</div>
+        <div>
+          <h3>Model generates a prediction</h3>
+          <p>A trained scikit-learn pipeline converts your inputs into an estimated salary.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-number">3</div>
+        <div>
+          <h3>Review the full picture</h3>
+          <p>See your range, key influencing factors, comparison, and suggestions.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="section-heading">
+      <h2>Built on real machine learning</h2>
+      <p>Four regression models were trained and compared on the underlying dataset; the strongest performer on held-out data was selected for live predictions.</p>
+    </div>
+    <div class="model-panel">
+      <div>
+        <p>Linear Regression, Decision Tree, Random Forest, and Gradient Boosting were each trained on the same cleaned dataset and evaluated with MAE, RMSE, and R² on a held-out test split. The best model by R² is the one powering every prediction in this app — see the About page for the exact figures from the last training run.</p>
+        <a class="btn btn-secondary" href="{{ url_for('about') }}">View model comparison</a>
+      </div>
+      <table class="data-table">
+        <thead>
+          <tr><th>Model</th><th>Evaluated on</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Linear Regression</td><td>Held-out test split</td></tr>
+          <tr><td>Decision Tree Regressor</td><td>Held-out test split</td></tr>
+          <tr><td>Random Forest Regressor</td><td>Held-out test split</td></tr>
+          <tr><td>Gradient Boosting Regressor</td><td>Held-out test split</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--surface);border-top:1px solid var(--line);">
+  <div class="container">
+    <div class="section-heading">
+      <h2>Why people use SalarySense</h2>
+    </div>
+    <ul class="benefits-list">
+      <li>Prepare for salary negotiations with a data-backed reference point</li>
+      <li>Compare how location, industry, and company size shift expected pay</li>
+      <li>Understand which factors in your profile matter most to the estimate</li>
+      <li>Track multiple predictions as your experience and skills grow</li>
+      <li>Get rule-based suggestions on skills and education that may help</li>
+      <li>Keep your prediction history private and tied to your account</li>
+    </ul>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="cta-band">
+      <h2>Ready to see your estimate?</h2>
+      <p>Create a free account and generate your first salary prediction in under two minutes.</p>
+      <a class="btn btn-gold" href="{{ url_for('register') if not current_user else url_for('predict') }}">Predict Salary</a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

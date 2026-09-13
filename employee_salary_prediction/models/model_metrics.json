@@ -1,0 +1,47 @@
+{
+  "best_model": "Linear Regression",
+  "models": {
+    "Linear Regression": {
+      "mae": 187857.25,
+      "mse": 79287834515.29,
+      "rmse": 281580.96,
+      "r2": 0.9433
+    },
+    "Decision Tree": {
+      "mae": 262400.54,
+      "mse": 167325516759.37,
+      "rmse": 409054.42,
+      "r2": 0.8803
+    },
+    "Random Forest": {
+      "mae": 229815.1,
+      "mse": 118292542879.99,
+      "rmse": 343936.83,
+      "r2": 0.9154
+    },
+    "Gradient Boosting": {
+      "mae": 200053.73,
+      "mse": 87330879719.46,
+      "rmse": 295517.99,
+      "r2": 0.9375
+    }
+  },
+  "training_records": 4753,
+  "testing_records": 1189,
+  "feature_importance": {
+    "job_title": 0.6763,
+    "industry": 0.0634,
+    "education_level": 0.0615,
+    "location": 0.0581,
+    "company_size": 0.049,
+    "employment_type": 0.0384,
+    "previous_salary": 0.0224,
+    "skills": 0.013,
+    "years_experience": 0.007,
+    "is_managerial": 0.0042,
+    "work_mode": 0.0035,
+    "certifications": 0.0017,
+    "gender": 0.0013,
+    "age": 0.0004
+  }
+}

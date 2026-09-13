@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: salarysense
+    runtime: python
+    rootDir: employee_salary_prediction
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: SALARYSENSE_SECRET_KEY
+        generateValue: true
